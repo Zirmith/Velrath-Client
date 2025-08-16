@@ -1,0 +1,33 @@
+{
+  "name": "velrath-client",
+  "version": "1.0.0",
+  "description": "Modern Discord client with advanced features",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "pack": "electron-builder --dir"
+  },
+  "keywords": ["discord", "client", "electron"],
+  "author": "Velrath Team",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "electron": "^26.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  },
+  "build": {
+    "appId": "com.velrath.client",
+    "productName": "Velrath Client",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*"
+    ]
+  }
+}
