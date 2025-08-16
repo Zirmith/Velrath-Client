@@ -108,7 +108,7 @@ class LoginManager {
   }
 
   handleOAuthLogin() {
-    this.showError('OAuth2 login is coming soon! Please use a Discord token for now.');
+    this.showError('OAuth2 login is coming soon! Please use a Discord user token for now.');
   }
 
   setLoading(loading) {

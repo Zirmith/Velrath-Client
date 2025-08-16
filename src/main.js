@@ -25,7 +25,7 @@ class VelrathApp {
       show: false
     });
 
-    this.mainWindow.loadFile(path.join(__dirname, 'views/login.html'));
+    this.mainWindow.loadFile(path.join(__dirname, 'views/splash.html'));
 
     this.mainWindow.once('ready-to-show', () => {
       this.mainWindow.show();
@@ -70,15 +70,46 @@ class VelrathApp {
     ipcMain.handle('discord-login', async (event, token) => {
       try {
         const axios = require('axios');
-        const response = await axios.get('https://discord.com/api/v10/users/@me', {
+        
+        // First try as user token
+        let response;
+        try {
+          response = await axios.get('https://discord.com/api/v10/users/@me', {
+            headers: {
+              'Authorization': token,
+              'Content-Type': 'application/json'
+            }
+          });
+        } catch (userError) {
+          // If user token fails, try as bot token
+          response = await axios.get('https://discord.com/api/v10/users/@me', {
+            headers: {
+              'Authorization': `Bot ${token}`,
+              'Content-Type': 'application/json'
+            }
+          });
+        }
+        
+        // Get additional user info
+        const userGuilds = await axios.get('https://discord.com/api/v10/users/@me/guilds', {
           headers: {
-            'Authorization': `Bot ${token}`,
+            'Authorization': token.startsWith('Bot ') ? token : token,
             'Content-Type': 'application/json'
           }
-        });
-        return { success: true, user: response.data };
+        }).catch(() => ({ data: [] }));
+        
+        const userData = {
+          ...response.data,
+          guild_count: userGuilds.data.length || 0
+        };
+        
+        return { success: true, user: userData };
       } catch (error) {
-        return { success: false, error: error.response?.data?.message || 'Invalid token' };
+        console.error('Discord login error:', error.response?.data || error.message);
+        return { 
+          success: false, 
+          error: error.response?.data?.message || 'Invalid token. Please check your Discord token.' 
+        };
       }
     });
   }

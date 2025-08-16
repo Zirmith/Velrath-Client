@@ -86,7 +86,7 @@ class DashboardManager {
   }
 
   updateUserInterface() {
-    const { username, discriminator, id, avatar, premium_type } = this.userData;
+    const { username, discriminator, id, avatar, premium_type, guild_count } = this.userData;
     const displayName = discriminator !== '0' ? `${username}#${discriminator}` : username;
     
     // Update greeting
@@ -112,8 +112,8 @@ class DashboardManager {
     const nitroStatus = nitroTypes[premium_type] || 'Inactive';
     this.nitroStatus.innerHTML = `<span class="nitro-badge">${nitroStatus}</span>`;
     
-    // Simulate some data (in a real app, this would come from Discord API)
-    this.serverCount.textContent = Math.floor(Math.random() * 50) + 10;
+    // Use real guild count or simulate
+    this.serverCount.textContent = guild_count || Math.floor(Math.random() * 50) + 10;
     this.friendCount.textContent = Math.floor(Math.random() * 100) + 1;
     this.commandsUsed.textContent = Math.floor(Math.random() * 50) + 1;
   }

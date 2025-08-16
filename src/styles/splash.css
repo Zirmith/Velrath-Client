@@ -1,0 +1,172 @@
+.splash-container {
+  height: 100vh;
+  background: #36393f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #dcddde;
+  overflow: hidden;
+  position: relative;
+}
+
+.splash-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(114, 137, 218, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.splash-content {
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+  padding: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.discord-logo {
+  margin-bottom: 60px;
+  color: #7289da;
+  animation: logoFloat 3s ease-in-out infinite;
+}
+
+.discord-logo svg {
+  filter: drop-shadow(0 0 20px rgba(114, 137, 218, 0.3));
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.loading-section {
+  margin-bottom: 80px;
+}
+
+.loading-bar {
+  width: 300px;
+  height: 8px;
+  background: #2f3136;
+  border-radius: 4px;
+  margin: 0 auto 20px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.loading-progress {
+  height: 100%;
+  background: linear-gradient(90deg, #7289da, #99aab5);
+  border-radius: 4px;
+  width: 0%;
+  animation: loadingProgress 3s ease-in-out;
+  box-shadow: 0 0 10px rgba(114, 137, 218, 0.5);
+}
+
+@keyframes loadingProgress {
+  0% { width: 0%; }
+  20% { width: 15%; }
+  40% { width: 35%; }
+  60% { width: 60%; }
+  80% { width: 85%; }
+  100% { width: 100%; }
+}
+
+.loading-text {
+  font-size: 16px;
+  color: #b9bbbe;
+  font-weight: 500;
+  animation: loadingTextPulse 2s ease-in-out infinite;
+}
+
+@keyframes loadingTextPulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+.tips-section {
+  position: relative;
+  height: 200px;
+}
+
+.tip-card {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 500px;
+  background: rgba(47, 49, 54, 0.8);
+  border-radius: 12px;
+  padding: 30px;
+  border: 1px solid rgba(114, 137, 218, 0.2);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: all 0.8s ease-in-out;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.tip-card.active {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.tip-card:not(.active) {
+  transform: translateX(-50%) translateY(20px);
+}
+
+.tip-icon {
+  color: #7289da;
+  margin-bottom: 16px;
+  filter: drop-shadow(0 0 8px rgba(114, 137, 218, 0.3));
+}
+
+.tip-header {
+  font-size: 14px;
+  font-weight: 700;
+  color: #7289da;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.tip-text {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #dcddde;
+  font-weight: 400;
+}
+
+.tip-text kbd {
+  background: #2f3136;
+  border: 1px solid #40444b;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  color: #dcddde;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark theme title bar for splash */
+.splash-container ~ * .title-bar {
+  background: #2f3136;
+  border-bottom-color: #40444b;
+}
+
+.splash-container ~ * .app-title {
+  color: #dcddde;
+}
+
+.splash-container ~ * .title-bar-btn {
+  color: #b9bbbe;
+}
+
+.splash-container ~ * .title-bar-btn:hover {
+  background: #40444b;
+  color: #dcddde;
+}
